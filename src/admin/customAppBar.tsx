@@ -6,7 +6,7 @@ import Logo from "./logo.png";
 const MyAppBar = ({ ...props }) => (
   <AppBar {...props}>
     <Box flex={1} /> 
-    <img src={Logo} height={"57"} width={"139"} className="App-logo" alt="logo" />
+    { <img src={Logo} height={"52"} width={"115"} className="App-logo" alt="logo" /> }
     <Box flex={1} /> 
   </AppBar>
 );
