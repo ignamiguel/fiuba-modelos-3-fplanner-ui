@@ -1,8 +1,13 @@
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, 
+  CardContent, 
+  CardHeader,
+ } from "@mui/material";
+
+
 
 export const Dashboard = () => (
   <Card>
-    <CardHeader title="FIUBA Planner" />
-    <CardContent>Lorem ipsum sic dolor amet...</CardContent>
+    <CardHeader title="Planificar de Carreras FIUBA Planner" />
+    <CardContent>Seleccionar una carrera para calcular un plan</CardContent>
   </Card>
 );

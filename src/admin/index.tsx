@@ -20,8 +20,8 @@ const App = () => (
     dataProvider={dataProvider} 
     dashboard={Dashboard}  >
 
-    {/* <Resource name="posts" list={ListGuesser} />
-    <Resource name="comments" list={ListGuesser} /> */}
+    {/* { <Resource name="posts" list={ListGuesser} /> */}
+    <Resource name="degrees" list={ListGuesser} show={ShowGuesser}/> 
     <Resource name="students" list={ListGuesser} show={ShowGuesser} edit={EditGuesser}/>
   </Admin>
 );
