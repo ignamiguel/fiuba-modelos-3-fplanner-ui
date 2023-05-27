@@ -36,7 +36,6 @@ export const Dashboard = () => {
 };
 
 function calculate(request: any):any {
-  alert("calculate");
   return 0;
 }
 

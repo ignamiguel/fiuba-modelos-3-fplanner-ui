@@ -26,8 +26,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           <MenuItem value={1}>Ingeniería Informática</MenuItem>
           <MenuItem value={2}>Lic. en Análisis de Sistemas</MenuItem>
           <MenuItem value={3}>Ingeniería Industrial</MenuItem>
-          <MenuItem value={4}>Ingeniería Industrial</MenuItem>
-          <MenuItem value={5}>Ingeniería Electrónica</MenuItem>
+          <MenuItem value={4}>Ingeniería Electrónica</MenuItem>
         </Select>
       </FormControl>
     </Box>

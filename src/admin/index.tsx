@@ -2,7 +2,6 @@ import { Admin,
     Resource, 
     ListGuesser, 
     ShowGuesser, 
-    EditGuesser, 
     LayoutComponent, 
     Layout } from "react-admin";
 import { dataProvider } from '../dataProviders/fiubaDataProvider';
