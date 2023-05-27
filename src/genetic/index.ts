@@ -1,5 +1,5 @@
 import GeneticAlgorithmConstructor from 'geneticalgorithm';
-import { PlanRequest }  from "./model";
+import { Degree, PlanRequest }  from "./model";
 import { degrees } from './model';
 
 const mutationFunction = (request:PlanRequest) => (phenotype: any) => {
@@ -76,17 +76,20 @@ const costOrientedFintessFunction = (request:PlanRequest) => (phenotype: any) =>
 }
 
 const calculate = (request: PlanRequest): number[] | null => {
-  // alert(JSON.stringify(request));
-  return null;
+  if(!request.degree) {
+    return null;
+  }
 
+  // Armo los individuos
+  // [[mañana][tarde][noche]] [[m][t][n]] [] [] [] [] [] 
+  const firstPhenotype = new Array(8).fill(new Array(3));
 
+  const subjects = degrees.find((e: Degree) => e.id === request.degree).subjects;
 
+  
+  firstPhenotype[0] = subjects[0].profesorships[0]
 
-
-  const firstPhenotype = new Array(degrees.length).fill(0);
-  firstPhenotype[0] = request.degree
-
-  const fitnessFunction = request.degree === 2 ? satisfactionOrientedFitnessFunction : costOrientedFintessFunction;
+  const fitnessFunction = satisfactionOrientedFitnessFunction;
   const geneticAlgorithm = GeneticAlgorithmConstructor({
       mutationFunction: mutationFunction(request),
       crossoverFunction: crossoverFunctionIterate,
