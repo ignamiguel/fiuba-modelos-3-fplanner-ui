@@ -1,4 +1,4 @@
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, Card, CardContent, CardHeader } from "@mui/material";
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,11 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { MenuRequest } from '../genetic/model';
+import { PlanRequest, Degree} from '../genetic/model';
+import { degrees, mySubjectShift }from '../genetic/model'; 
 
 
 type Props = {
-  request: MenuRequest;
+  request: PlanRequest;
   results: number[] | null;
   onGoBack: () => void;
 }
@@ -21,16 +22,27 @@ const Results = ({results, request, onGoBack}:Props) => {
   return (
   <>
   <Typography component="h2" variant='h4'>Resultados</Typography>
+  <Card sx={{ maxWidth: 1000}}>
+    
+    <CardContent>
+      {`Carrera: ${request.degree? degrees.find((e: Degree) => e.id === request.degree).name : ''}`}
+      <br />
+      {`Materias por cuatrimestre: ${request.numberOfSubjetsPerPeriod}`}
+      <br />
+      {`Disponibilidad para cursar: ${request.availiabilityForClasses ? mySubjectShift[request.availiabilityForClasses].name : ''}`}
+      <br />
+      {`Riesgo Aceptable: ${request.acceptableRisk} %`}
+    </CardContent>
+    
+  </Card>
   <Box sx={{ display: 'flex', flexDirection: "column", gap: "12px", maxWidth: 1000}}>
     {(
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
-        <TableRow>
           <TableCell>Cuatrimestre</TableCell>
           <TableCell>Materias</TableCell>
           <TableCell>Probabilidad de Aprobar</TableCell>
-        </TableRow>
       </TableHead>
       <TableBody>
           <TableRow
