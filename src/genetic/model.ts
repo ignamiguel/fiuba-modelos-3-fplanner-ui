@@ -53,10 +53,18 @@ const mySubjectShift: Dictionary<SubjectShift> = {
     name: 'Todos los turnos'
   }
 }
-const myProfessorship: Professorship[] = [
+const professorshipList: Professorship[] = [
+  {
+    id: 0,
+    name: "Álgebra: Cátedra Orecchia",
+    subject: 0,
+    feedbackRaiting: 4,
+    probability: 0.99,
+    shift: mySubjectShift[1]
+  },
   {
     id: 1,
-    name: "Álgebra: Cátedra Orecchia",
+    name: "Análisis Matemático: Cátedra Acero",
     subject: 1,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -64,7 +72,7 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 2,
-    name: "Análisis Matemático: Cátedra Acero",
+    name: "Organización del Computador: Cátedra Benitez",
     subject: 2,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -72,7 +80,7 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 3,
-    name: "Organización del Computador: Cátedra Benitez",
+    name: "Modelos y Optimización I: Cátedra Ramos",
     subject: 3,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -80,7 +88,7 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 4,
-    name: "Modelos y Optimización I: Cátedra Ramos",
+    name: "Algoritmos y Programación I: Cátedra Rosita",
     subject: 4,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -88,7 +96,7 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 5,
-    name: "Algoritmos y Programación I: Cátedra Rosita",
+    name: "Base de Datos: Cátedra Beiro",
     subject: 5,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -96,7 +104,7 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 6,
-    name: "Base de Datos: Cátedra Beiro",
+    name: "Técnicas de Diseño: Cátedra Paez",
     subject: 6,
     feedbackRaiting: 4,
     probability: 0.99,
@@ -104,16 +112,8 @@ const myProfessorship: Professorship[] = [
   },
   {
     id: 7,
-    name: "Técnicas de Diseño: Cátedra Paez",
-    subject: 7,
-    feedbackRaiting: 4,
-    probability: 0.99,
-    shift: mySubjectShift[1]
-  },
-  {
-    id: 8,
     name: "Administración de Proyectos: Cátedra Miguel",
-    subject: 8,
+    subject: 7,
     feedbackRaiting: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
@@ -121,74 +121,73 @@ const myProfessorship: Professorship[] = [
 ];
 
   
-const mySubjects: Subject[] = [
+const subjectList: Subject[] = [
   {
     id: 0,
     name: "Álgebra",
-    profesorships: [myProfessorship[0]]
+    profesorships: [professorshipList[0]]
   },
   {
     id: 1,
     name: "Análisis Matemático",
-    profesorships: [myProfessorship[1]]
+    profesorships: [professorshipList[1]]
   },
   {
     id: 2,
     name: "Organización del Computador",
-    profesorships: [myProfessorship[2]]
+    profesorships: [professorshipList[2]]
   },
   {
     id: 3,
     name: "Modelos y Optimización I",
-    profesorships: [myProfessorship[3]]
+    profesorships: [professorshipList[3]]
   },
   {
     id: 4,
     name: "Algoritmos y Programación I",
-    profesorships: [myProfessorship[4]]
+    profesorships: [professorshipList[4]]
   },
   {
     id: 5,
     name: "Base de Datos",
-    profesorships: [myProfessorship[5]]
+    profesorships: [professorshipList[5]]
   },
   {
     id: 6,
     name: "Técnicas de Diseño",
-    profesorships: [myProfessorship[6]]
+    profesorships: [professorshipList[6]]
   },
   {
     id: 7,
     name: "Administración de Proyectos",
-    profesorships: [myProfessorship[7]]
+    profesorships: [professorshipList[7]]
   }
 ];
 
-const degrees: Degree[] = [
+const degreeList: Degree[] = [
   {
     id: 1,
     name: "Ingeniería Informática",
-    subjects: mySubjects
+    subjects: subjectList
   },
   {
     id: 2,
     name: "Lic. en Análisis de Sistemas",
-    subjects: mySubjects
+    subjects: subjectList
   },
   {
     id: 3,
     name: "Ingeniería Industrial",
-    subjects: mySubjects
+    subjects: subjectList
   },
   {
     id: 4,
     name: "Ingeniería Electrónica",
-    subjects: mySubjects
+    subjects: subjectList
   }
 ];
 
 
-
-  export {degrees, mySubjectShift, mySubjects, myProfessorship};
+  export {degreeList, mySubjectShift, subjectList as mySubjects, professorshipList as myProfessorship};
   
   export type {Degree, PlanRequest, SubjectShift}; 

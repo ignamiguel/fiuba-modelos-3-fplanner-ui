@@ -8,16 +8,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { PlanRequest, Degree} from '../genetic/model';
-import { degrees, mySubjectShift }from '../genetic/model'; 
+import { degreeList, mySubjectShift }from '../genetic/model'; 
 
 
 type Props = {
   request: PlanRequest;
-  results: number[] | null;
+  results: Array<any>[] | null;
   onGoBack: () => void;
 }
 
 const Results = ({results, request, onGoBack}:Props) => {
+
+  console.log("RESULTX", JSON.stringify(results));
+
 
   return (
   <>
@@ -25,7 +28,9 @@ const Results = ({results, request, onGoBack}:Props) => {
   <Card sx={{ maxWidth: 1000}}>
     
     <CardContent>
-      {`Carrera: ${request.degree? degrees.find((e: Degree) => e.id === request.degree).name : ''}`}
+      {`Carrera: ${request.degree? degreeList.find((e: Degree) => e.id === request.degree).name : ''}`}
+      <br />
+      {`Cantidad de Materias: ${request.degree? degreeList.find((e: Degree) => e.id === request.degree).subjects.length : ''}`}
       <br />
       {`Materias por cuatrimestre: ${request.numberOfSubjetsPerPeriod}`}
       <br />
@@ -40,39 +45,57 @@ const Results = ({results, request, onGoBack}:Props) => {
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
+        <TableRow>
           <TableCell>Cuatrimestre</TableCell>
           <TableCell>Materias</TableCell>
           <TableCell>Probabilidad de Aprobar</TableCell>
+        </TableRow>
       </TableHead>
       <TableBody>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell>1C</TableCell>
-            <TableCell>Álgebra<br />Análisis Matemático</TableCell>
-            <TableCell>90%</TableCell>
-          </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell>2C</TableCell>
-            <TableCell>Organización del Computador<br />Modelos y Optimización I</TableCell>
-            <TableCell>90%</TableCell>
-          </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell>3C</TableCell>
-            <TableCell>Algoritmos y Programación I<br />Base de Datos</TableCell>
-            <TableCell>90%</TableCell>
-          </TableRow>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell>4C</TableCell>
-            <TableCell>Técnicas de Diseño<br />Administración de Proyectos</TableCell>
-            <TableCell>90%</TableCell>
-          </TableRow>
+        {results ? results.map((cuatrimestre, index) => (
+           <TableRow
+             key={index}
+             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+           >
+             <TableCell scope="row">
+               {`${index + 1}C`} 
+             </TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>
+              {
+              cuatrimestre.map((e, index) => (`${e.name}
+             `))}
+             </TableCell>
+             <TableCell>90%</TableCell>
+           </TableRow>
+         )) : "PEPE"}
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell>1C</TableCell>
+          <TableCell>Álgebra<br />Análisis Matemático</TableCell>
+          <TableCell>90%</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell>2C</TableCell>
+          <TableCell>Organización del Computador<br />Modelos y Optimización I</TableCell>
+          <TableCell>90%</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell>3C</TableCell>
+          <TableCell>Algoritmos y Programación I<br />Base de Datos</TableCell>
+          <TableCell>90%</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell>4C</TableCell>
+          <TableCell>Técnicas de Diseño<br />Administración de Proyectos</TableCell>
+          <TableCell>90%</TableCell>
+        </TableRow>
       </TableBody>
     </Table>
   </TableContainer>)}

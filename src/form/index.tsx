@@ -15,6 +15,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
   return (
     <>
     <Typography component="h5" variant='h4'>Restricciones</Typography>
+    <Typography>Seleccionar una carrera para calcular un plan</Typography>
     <Box sx={{ maxWidth: 300 }}>
       <FormControl fullWidth>
         <InputLabel>Carreras</InputLabel>
@@ -23,6 +24,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           label="Carreras"
           onChange={(e) => setDegree(Number(e.target.value))}
         >
+          <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={1}>Ingeniería Informática</MenuItem>
           <MenuItem value={2}>Lic. en Análisis de Sistemas</MenuItem>
           <MenuItem value={3}>Ingeniería Industrial</MenuItem>
@@ -39,6 +41,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           label="Materias por cuatrimestre"
           onChange={(e) => setNumberOfSubjetsPerPeriod(Number(e.target.value))}
         >
+          <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>
@@ -55,6 +58,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           label="Disponibilidad para cursar"
           onChange={(e) => setAvailiabilityForClasses(Number(e.target.value))}
         >
+          <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={1}>Por la mañana (08 a 12 hs)</MenuItem>
           <MenuItem value={2}>Por la tarde (14 a 18 hs)</MenuItem>
           <MenuItem value={3}>Por la noche (18 a 22 hs)</MenuItem>
@@ -72,6 +76,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           label="Riesgo Aceptable"
           onChange={(e) => setAcceptableRisk(Number(e.target.value))}
         >
+          <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={90}>90%</MenuItem>
           <MenuItem value={80}>80%</MenuItem>
           <MenuItem value={70}>70%</MenuItem>

@@ -13,7 +13,7 @@ import { calculate } from "./genetic";
 type Views = "restrictions" | "results";
 export const Dashboard = () => {
 
-  const [results, setResult] = useState<number[] | null>(null);
+  const [results, setResult] = useState<Array<any> | null>(null);
   const [view, setView] = useState<Views>("restrictions");
   const [request, setRequest] = useState<PlanRequest>({degree: 0, numberOfSubjetsPerPeriod: 0, availiabilityForClasses: 0, acceptableRisk: 0});
   
@@ -27,7 +27,6 @@ export const Dashboard = () => {
   return (
     <Card>
     <CardHeader title="Planificar de Carreras FIUBA Planner" />
-    <CardContent>Seleccionar una carrera para calcular un plan</CardContent>
     <CardContent>
           {view === "restrictions" && <Form doCalculations={doCalculations} />}
           {view === "results" && <Results results={results} onGoBack={() => setView("restrictions")} request={request}/>}

@@ -1,7 +1,8 @@
 import GeneticAlgorithmConstructor from 'geneticalgorithm';
 import { Degree, PlanRequest }  from "./model";
-import { degrees } from './model';
+import { degreeList } from './model';
 
+// Mutation Function
 const mutationFunction = (request:PlanRequest) => (phenotype: any) => {
   const randomCromosome = Math.floor(Math.random() * phenotype.length);
   const modifierRand = Math.random();
@@ -42,7 +43,7 @@ function crossoverFunctionIterate(phenotypeA: any, phenotypeB: any) {
 }
 
 const getSummary = (phenotype:any, request:PlanRequest) => phenotype.reduce((acc: any, amount: number, index: any) => {
-  const dish = degrees[index];
+  const dish = degreeList[index];
   // const portionsByRestriction = getPortionsByRestrictions(request, phenotype);
   return {
     totalCost: acc.totalCost + dish.id * amount,
@@ -52,7 +53,7 @@ const getSummary = (phenotype:any, request:PlanRequest) => phenotype.reduce((acc
     variety: acc.variety + (amount > 0 ? 1 : 0),
     restrictions: acc.restrictions
   };
-}, {totalCost: 0, totalPortions: 0, totalSatisfaction: 0, totalDishes: 0, variety: 0, restrictions: getPortionsByRestrictions(request, phenotype)});
+});
 
 
 const satisfactionOrientedFitnessFunction = (request: PlanRequest) => (phenotype: any) => {
@@ -66,38 +67,61 @@ const satisfactionOrientedFitnessFunction = (request: PlanRequest) => (phenotype
 	return summary.totalSatisfaction / (summary.totalPortions ** 2);
 }
 
-const costOrientedFintessFunction = (request:PlanRequest) => (phenotype: any) => {
-  const summary = getSummary(phenotype, request);
-  // check if fits  restrictions
-  if (!checkRestrictions(request, summary)) {
-    return 0;
-  }
-  return request.degree - summary.totalCost;
-}
+const calculate = (request: PlanRequest): Array<any> | null => {
 
-const calculate = (request: PlanRequest): number[] | null => {
-  if(!request.degree) {
+  if(!isRequestValid(request)) {
+    console.log("invalid request: ", JSON.stringify(request));
     return null;
   }
 
-  // Armo los individuos
-  // [[mañana][tarde][noche]] [[m][t][n]] [] [] [] [] [] 
-  const firstPhenotype = new Array(8).fill(new Array(3));
+  const degree = degreeList.find((e: Degree) => e.id === request.degree);
+  if (!degree) {
+    console.log("degree is null: ", degree);
+    return null;
+  }
 
-  const subjects = degrees.find((e: Degree) => e.id === request.degree).subjects;
+  // Cantidad de cuatrimestres
+  // # materias / # materias por cuatrimestre
+  const numberOfSubjects = degree.subjects.length;
+  const periods = numberOfSubjects / /*request.numberOfSubjetsPerPeriod*/ 2;
 
+  const subjects = degree.subjects;
+
+  console.log("periods", periods);
   
-  firstPhenotype[0] = subjects[0].profesorships[0]
+  // TODO: Saco el turno tarde
+  const firstPhenotype = new Array(periods);
 
-  const fitnessFunction = satisfactionOrientedFitnessFunction;
+  console.log("BEFORE firstPhenotype", JSON.stringify(firstPhenotype));
+
+  // Algritmo Greedy que obtiene la primera cátedra de cada materia
+  let i = 0;
+  for (let index = 0; index < firstPhenotype.length; index++) {
+    console.log(index);
+
+    const cuatrimestre = new Array(2);
+    cuatrimestre[0] = subjects[i++].profesorships[0];
+    cuatrimestre[1] = subjects[i++].profesorships[0];
+    // cuatrimestre[2] = `Turno Noche`;
+
+    firstPhenotype[index] = cuatrimestre;
+  }
+
+  console.log("AFTER firstPhenotype", JSON.stringify(firstPhenotype));
+  return firstPhenotype;
+
+  //console.log("subjects", JSON.stringify(firstPhenotype));
+  
+  firstPhenotype[0] = subjects[0].profesorships[0];
+  
   const geneticAlgorithm = GeneticAlgorithmConstructor({
       mutationFunction: mutationFunction(request),
       crossoverFunction: crossoverFunctionIterate,
-      fitnessFunction: fitnessFunction(request),
+      fitnessFunction: satisfactionOrientedFitnessFunction(request),
       population: [ firstPhenotype ]
   });
 
-  for( let i = 0 ; i < 2000 ; i++ ) geneticAlgorithm.evolve()
+  for( let i = 0 ; i < 2000 ; i++ ) geneticAlgorithm.evolve();
   const best = geneticAlgorithm.best()
 
   console.log(request, best)
@@ -112,7 +136,16 @@ export  {calculate, getSummary};
         return true;
     }
 
-function getPortionsByRestrictions(request: PlanRequest, phenotype: any) {
-    return 1;
+function isRequestValid(request: PlanRequest):boolean {
+  if(!request.degree) {
+    console.log("request.degree is null: ", request.degree);
+    return false;
+  }
+
+  if(!request.numberOfSubjetsPerPeriod) {
+    console.log("request.numberOfSubjetsPerPeriod is invalid: ", request.numberOfSubjetsPerPeriod);
+    return false;
+  }
+  return true;
 }
 
