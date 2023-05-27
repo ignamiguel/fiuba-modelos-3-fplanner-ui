@@ -20,9 +20,10 @@ const App = () => (
     dataProvider={dataProvider} 
     dashboard={Dashboard}  >
 
-    {/* { <Resource name="posts" list={ListGuesser} /> */}
-    <Resource name="degrees" list={ListGuesser} show={ShowGuesser}/> 
-    <Resource name="students" list={ListGuesser} show={ShowGuesser} edit={EditGuesser}/>
+    <Resource name="students" options={{ label: 'Alumnos' }} list={ListGuesser} show={ShowGuesser} />
+    <Resource name="degrees" options={{ label: 'Carreras' }} list={ListGuesser} show={ShowGuesser}/> 
+    <Resource name="subjects" options={{ label: 'Materias' }} list={ListGuesser} />
+    <Resource name="profeshorship" options={{ label: 'Cátedras' }} list={ListGuesser} />
   </Admin>
 );
 
