@@ -1,4 +1,4 @@
-import { Button, Box, Typography, Card, CardContent, CardHeader } from "@mui/material";
+import { Button, Box, Typography, Card, CardContent, List, ListItem, ListItemText, ListItemIcon, Icon } from "@mui/material";
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,16 +21,31 @@ const Results = ({results, request, onGoBack}:Props) => {
 
   console.log("RESULTX", JSON.stringify(results));
 
+  const subjects = request.degree ? degreeList.find((e: Degree) => e.id === request.degree).subjects : [];
+
 
   return (
   <>
   <Typography component="h2" variant='h4'>Resultados</Typography>
   <Card sx={{ maxWidth: 1000}}>
     
-    <CardContent>
+    <CardContent style={{ whiteSpace: "pre-line" }}>
       {`Carrera: ${request.degree? degreeList.find((e: Degree) => e.id === request.degree).name : ''}`}
       <br />
-      {`Cantidad de Materias: ${request.degree? degreeList.find((e: Degree) => e.id === request.degree).subjects.length : ''}`}
+      {`Cantidad de Materias: ${request.degree ? degreeList.find((e: Degree) => e.id === request.degree).subjects.length : ''}`}
+      <br />
+      <List>
+          {subjects.map((s, i) => (
+            <ListItem key={i}>
+              <ListItemIcon>
+                📂
+              </ListItemIcon>
+              <ListItemText
+                primary={s.name}
+              />
+            </ListItem>
+          ))}
+        </List>
       <br />
       {`Materias por cuatrimestre: ${request.numberOfSubjetsPerPeriod}`}
       <br />
@@ -67,8 +82,8 @@ const Results = ({results, request, onGoBack}:Props) => {
              </TableCell>
              <TableCell>90%</TableCell>
            </TableRow>
-         )) : "PEPE"}
-        <TableRow
+         )): ""}
+        {/* <TableRow
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell>1C</TableCell>
@@ -95,7 +110,7 @@ const Results = ({results, request, onGoBack}:Props) => {
           <TableCell>4C</TableCell>
           <TableCell>Técnicas de Diseño<br />Administración de Proyectos</TableCell>
           <TableCell>90%</TableCell>
-        </TableRow>
+        </TableRow> */}
       </TableBody>
     </Table>
   </TableContainer>)}
