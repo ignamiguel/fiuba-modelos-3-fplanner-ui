@@ -7,11 +7,19 @@ const myMutationFunction = (phenotype: Array<any>) => {
   const randomPeriod = Math.floor(r1);
 
   const r2 = Math.random() * (phenotype[0].length - 0) + 0;
-  const randomTurno = Math.floor(r1);
+  const randomTurno = Math.floor(r2);
+
+  const r3 = Math.random() * (2 - 0) + 0;
+  const randomCatedra = Math.floor(r3);
 
   // use oldPhenotype and some random
   // function to make a change to your
   // phenotype
+
+  const key = phenotype[randomPeriod][randomTurno].subject;
+
+  phenotype[randomPeriod][randomTurno] = professorshipDic[key][randomCatedra];
+
 	return phenotype;
 };
 
@@ -88,6 +96,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   const phenotype1 = new Array(periods);
   const phenotype2 = new Array(periods);
   const phenotype3 = new Array(periods);
+  const phenotype4 = new Array(periods);
 
   // Algritmo Greedy que crea 2 individuos
   // Individuo 1: obtiene la primera cátedra para la primera materia y la 2 cátedra para la segunda materia
@@ -95,10 +104,12 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   let i = 0;
   let j = 0;
   let k = 0;
+  let l = 0;
   for (let index = 0; index < phenotype1.length; index++) {
     const cuatrimestre1 = new Array(2);
     const cuatrimestre2 = new Array(2);
     const cuatrimestre3 = new Array(2);
+    const cuatrimestre4 = new Array(2);
     
     cuatrimestre1[0] = professorshipDic[subjects[i++].id][0];
     cuatrimestre1[1] = professorshipDic[subjects[i++].id][1];
@@ -109,12 +120,16 @@ const calculate = (request: PlanRequest): Array<any> | null => {
     cuatrimestre3[0] = professorshipDic[subjects[k++].id][0];
     cuatrimestre3[1] = professorshipDic[subjects[k++].id][0];
 
+    cuatrimestre4[0] = professorshipDic[subjects[l++].id][1];
+    cuatrimestre4[1] = professorshipDic[subjects[l++].id][1];
+
     // TODO: Saco el turno noche
     // cuatrimestre[2] = `Turno Noche`;
 
     phenotype1[index] = cuatrimestre1;
     phenotype2[index] = cuatrimestre2;
     phenotype3[index] = cuatrimestre3;
+    phenotype4[index] = cuatrimestre4;
   }
 
   // console.log("myFitnessFunction", myFitnessFunction(firstPhenotype));
@@ -129,7 +144,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
     crossoverFunction: myCrossoverFunction,  
     mutationFunction: myMutationFunction,
     fitnessFunction: myFitnessFunction,
-    population: [ phenotype1, phenotype2, phenotype3 ]
+    population: [ phenotype1, phenotype2, phenotype3, phenotype4 ]
   });
 
   for( let i = 0 ; i < 2000 ; i++ ) geneticAlgorithm.evolve();
