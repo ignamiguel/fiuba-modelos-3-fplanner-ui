@@ -18,7 +18,7 @@ type Professorship = {
   id: number, 
   name: string,
   subject: number,
-  feedbackRaiting: number,
+  feedbackRating: number,
   probability: number,
   shift: SubjectShift
 };
@@ -58,7 +58,7 @@ const professorshipList: Professorship[] = [
     id: 0,
     name: "Álgebra: Cátedra Orecchia",
     subject: 0,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -66,7 +66,7 @@ const professorshipList: Professorship[] = [
     id: 1,
     name: "Análisis Matemático: Cátedra Acero",
     subject: 1,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -74,7 +74,7 @@ const professorshipList: Professorship[] = [
     id: 2,
     name: "Organización del Computador: Cátedra Benitez",
     subject: 2,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -82,7 +82,7 @@ const professorshipList: Professorship[] = [
     id: 3,
     name: "Modelos y Optimización I: Cátedra Ramos",
     subject: 3,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -90,7 +90,7 @@ const professorshipList: Professorship[] = [
     id: 4,
     name: "Algoritmos y Programación I: Cátedra Rosita",
     subject: 4,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -98,7 +98,7 @@ const professorshipList: Professorship[] = [
     id: 5,
     name: "Base de Datos: Cátedra Beiro",
     subject: 5,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -106,7 +106,7 @@ const professorshipList: Professorship[] = [
     id: 6,
     name: "Técnicas de Diseño: Cátedra Paez",
     subject: 6,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   },
@@ -114,7 +114,7 @@ const professorshipList: Professorship[] = [
     id: 7,
     name: "Administración de Proyectos: Cátedra Miguel",
     subject: 7,
-    feedbackRaiting: 4,
+    feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   }
@@ -190,4 +190,4 @@ const degreeList: Degree[] = [
 
   export {degreeList, mySubjectShift, subjectList as mySubjects, professorshipList as myProfessorship};
   
-  export type {Degree, PlanRequest, SubjectShift}; 
+  export type {Degree, PlanRequest, SubjectShift, Professorship}; 
