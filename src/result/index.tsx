@@ -1,4 +1,4 @@
-import { Button, Box, Typography, Card, CardContent, List, ListItem, ListItemText, ListItemIcon, Icon } from "@mui/material";
+import { Button, Box, Typography, Card, CardContent, List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { PlanRequest, Degree} from '../genetic/model';
 import { degreeList, mySubjectShift }from '../genetic/model'; 
+import React from "react";
 
 
 type Props = {
@@ -19,10 +20,7 @@ type Props = {
 
 const Results = ({results, request, onGoBack}:Props) => {
 
-  console.log("RESULTX", JSON.stringify(results));
-
-  const subjects = request.degree ? degreeList.find((e: Degree) => e.id === request.degree).subjects : [];
-
+  const subjects = request.degree ? degreeList!.find((e: Degree) => e.id === request.degree).subjects : [];
 
   return (
   <>
@@ -55,6 +53,7 @@ const Results = ({results, request, onGoBack}:Props) => {
     </CardContent>
     
   </Card>
+  <Typography component="h4" variant='h5'>Plan Propuesto</Typography>
   <Box sx={{ display: 'flex', flexDirection: "column", gap: "12px", maxWidth: 1000}}>
     {(
       <TableContainer component={Paper}>
@@ -76,45 +75,14 @@ const Results = ({results, request, onGoBack}:Props) => {
                {`${index + 1}C`} 
              </TableCell>
              <TableCell style={{ whiteSpace: "pre-line" }}>
-              {
-              cuatrimestre.map((e, index) => (`${e.name}
-             `))}
+                {cuatrimestre ? cuatrimestre.map((e, index) => (`${e.name}\n`)) : ''}
              </TableCell>
-             <TableCell>90%</TableCell>
+             <TableCell>{cuatrimestre ? (cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) * 100).toFixed(2) : '0'}%</TableCell>
            </TableRow>
          )): ""}
-        {/* <TableRow
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell>1C</TableCell>
-          <TableCell>Álgebra<br />Análisis Matemático</TableCell>
-          <TableCell>90%</TableCell>
-        </TableRow>
-        <TableRow
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell>2C</TableCell>
-          <TableCell>Organización del Computador<br />Modelos y Optimización I</TableCell>
-          <TableCell>90%</TableCell>
-        </TableRow>
-        <TableRow
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell>3C</TableCell>
-          <TableCell>Algoritmos y Programación I<br />Base de Datos</TableCell>
-          <TableCell>90%</TableCell>
-        </TableRow>
-        <TableRow
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell>4C</TableCell>
-          <TableCell>Técnicas de Diseño<br />Administración de Proyectos</TableCell>
-          <TableCell>90%</TableCell>
-        </TableRow> */}
       </TableBody>
     </Table>
   </TableContainer>)}
-    {/* {results ? results.map((result, index) => <Card key={index}><CardContent>{dishes[index].name}{": "}{result}</CardContent></Card>) : "No result available :("} */}
   </Box>
   <br />
   <Button variant="contained" type="button" onClick={onGoBack}>Retroceder</Button>

@@ -8,6 +8,7 @@ import { useState } from "react";
 import type {PlanRequest} from "./genetic/model";
 import Results from "./result";
 import { calculate } from "./genetic";
+import React from "react";
 
 
 type Views = "restrictions" | "results";
