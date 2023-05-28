@@ -77,7 +77,7 @@ const Results = ({results, request, onGoBack}:Props) => {
              <TableCell style={{ whiteSpace: "pre-line" }}>
                 {cuatrimestre ? cuatrimestre.map((e, index) => (`${e.name}\n`)) : ''}
              </TableCell>
-             <TableCell>90%</TableCell>
+             <TableCell>{cuatrimestre ? (cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) * 100).toFixed(2) : '0'}%</TableCell>
            </TableRow>
          )): ""}
       </TableBody>
