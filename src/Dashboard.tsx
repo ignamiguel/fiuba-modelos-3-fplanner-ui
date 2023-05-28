@@ -5,16 +5,18 @@ import { Card,
 
 import Form from './form';
 import { useState } from "react";
-import type {MenuRequest} from "./genetic/model";
+import type {PlanRequest} from "./genetic/model";
 import Results from "./result";
+import { calculate } from "./genetic";
 
 
 type Views = "restrictions" | "results";
 export const Dashboard = () => {
 
-  const [results, setResult] = useState<number[] | null>(null);
+  const [results, setResult] = useState<Array<any> | null>(null);
   const [view, setView] = useState<Views>("restrictions");
-  const [request, setRequest] = useState<MenuRequest>({portions: 0, budget: 0, satisfaction: 0, variety: 0, optimize: "satisfaction"});
+  const [request, setRequest] = useState<PlanRequest>({degree: 0, numberOfSubjetsPerPeriod: 0, availiabilityForClasses: 0, acceptableRisk: 0});
+  
   const doCalculations = (request: any) => {
     setRequest(request)
     const result = calculate(request);
@@ -25,17 +27,11 @@ export const Dashboard = () => {
   return (
     <Card>
     <CardHeader title="Planificar de Carreras FIUBA Planner" />
-    <CardContent>Seleccionar una carrera para calcular un plan</CardContent>
     <CardContent>
           {view === "restrictions" && <Form doCalculations={doCalculations} />}
           {view === "results" && <Results results={results} onGoBack={() => setView("restrictions")} request={request}/>}
-      {/* <Form doCalculations={doCalculations} /> */}
     </CardContent>
   </Card>
   )
 };
-
-function calculate(request: any):any {
-  return 0;
-}
 
