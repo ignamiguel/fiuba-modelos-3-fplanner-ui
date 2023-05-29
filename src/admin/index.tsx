@@ -21,8 +21,8 @@ const App = () => (
 
     <Resource name="students" options={{ label: 'Alumnos' }} list={ListGuesser} show={ShowGuesser} />
     <Resource name="degrees" options={{ label: 'Carreras' }} list={ListGuesser} show={ShowGuesser}/> 
-    <Resource name="subjects" options={{ label: 'Materias' }} list={ListGuesser} />
-    <Resource name="profeshorship" options={{ label: 'Cátedras' }} list={ListGuesser} />
+    <Resource name="subjects" options={{ label: 'Materias' }} list={ListGuesser} show={ShowGuesser}/>
+    <Resource name="professorships" options={{ label: 'Cátedras' }} list={ListGuesser} show={ShowGuesser}/>
   </Admin>
 );
 

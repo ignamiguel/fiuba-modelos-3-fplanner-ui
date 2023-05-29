@@ -27,7 +27,7 @@ export const Dashboard = () => {
 
   return (
     <Card>
-    <CardHeader title="Planificar de Carreras FIUBA Planner" />
+    <CardHeader title="Planificador de Carreras FIUBA Planner" />
     <CardContent>
           {view === "restrictions" && <Form doCalculations={doCalculations} />}
           {view === "results" && <Results results={results} onGoBack={() => setView("restrictions")} request={request}/>}

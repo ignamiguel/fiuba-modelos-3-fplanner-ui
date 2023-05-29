@@ -220,12 +220,12 @@ const professorshipDic: Dictionary<Professorship[]> = {
     probability: 0.49,
     shift: mySubjectShift[1]
   }, {
-    id: 6,
+    id: 16,
     name: "Técnicas de Diseño: Cátedra Paez (2)",
     subject: 6,
     feedbackRating: 3,
     probability: 0.99,
-    shift: mySubjectShift[8]
+    shift: mySubjectShift[2]
   }],
   7: [{
     id: 7,
