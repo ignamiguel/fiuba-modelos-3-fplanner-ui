@@ -24,7 +24,7 @@ type Professorship = {
 };
 
 type PlanRequest = {
-  degree: number,
+  degreeIndex: number,
   numberOfSubjetsPerPeriod: number,
   availiabilityForClasses: number,
   acceptableRisk: number
@@ -54,7 +54,7 @@ const mySubjectShift: Dictionary<SubjectShift> = {
   }
 };
 
-const professorshipList: Professorship[] = [
+const professorshipArray: Professorship[] = [
   {
     id: 0,
     name: "Álgebra: Cátedra Orecchia",
@@ -244,47 +244,46 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }]
 };
 
-
 const subjectList: Subject[] = [
   {
     id: 0,
     name: "Álgebra",
-    profesorships: [professorshipList[0]]
+    profesorships: [professorshipArray[0]]
   },
   {
     id: 1,
     name: "Análisis Matemático",
-    profesorships: [professorshipList[1]]
+    profesorships: [professorshipArray[1]]
   },
   {
     id: 2,
     name: "Organización del Computador",
-    profesorships: [professorshipList[2]]
+    profesorships: [professorshipArray[2]]
   },
   {
     id: 3,
     name: "Modelos y Optimización I",
-    profesorships: [professorshipList[3]]
+    profesorships: [professorshipArray[3]]
   },
   {
     id: 4,
     name: "Algoritmos y Programación I",
-    profesorships: [professorshipList[4]]
+    profesorships: [professorshipArray[4]]
   },
   {
     id: 5,
     name: "Base de Datos",
-    profesorships: [professorshipList[5]]
+    profesorships: [professorshipArray[5]]
   },
   {
     id: 6,
     name: "Técnicas de Diseño",
-    profesorships: [professorshipList[6]]
+    profesorships: [professorshipArray[6]]
   },
   {
     id: 7,
     name: "Administración de Proyectos",
-    profesorships: [professorshipList[7]]
+    profesorships: [professorshipArray[7]]
   }
 ];
 
@@ -312,6 +311,6 @@ const degreeList: Degree[] = [
 ];
 
 
-export { degreeList, mySubjectShift, subjectList, professorshipList, professorshipDic};
+export { degreeList, mySubjectShift, subjectList, professorshipArray, professorshipDic};
 
 export type { Degree, PlanRequest, SubjectShift, Professorship }; 

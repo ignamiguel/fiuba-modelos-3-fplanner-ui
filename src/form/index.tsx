@@ -3,13 +3,13 @@ import { Box,Button, FormControl, InputLabel, MenuItem, Select, Typography } fro
 import { useState } from "react";
 
 const Form = ({doCalculations}: {doCalculations:any}) => {
-  const [degree, setDegree] = useState(0);
+  const [degreeIndex, setDegree] = useState(0);
   const [numberOfSubjetsPerPeriod, setNumberOfSubjetsPerPeriod] = useState(0);
   const [availiabilityForClasses, setAvailiabilityForClasses] = useState(0);
   const [acceptableRisk, setAcceptableRisk] = useState(0);
 
   const handleCalculate = () => {
-    doCalculations({degree, numberOfSubjetsPerPeriod, availiabilityForClasses, acceptableRisk});
+    doCalculations({degreeIndex, numberOfSubjetsPerPeriod, availiabilityForClasses, acceptableRisk});
   }
 
   return (
@@ -20,7 +20,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
       <FormControl fullWidth>
         <InputLabel>Carreras</InputLabel>
         <Select
-          value={degree}
+          value={degreeIndex}
           label="Carreras"
           onChange={(e) => setDegree(Number(e.target.value))}
         >
