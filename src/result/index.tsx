@@ -20,7 +20,7 @@ type Props = {
 
 const Results = ({results, request, onGoBack}:Props) => {
 
-  const subjects = request.degree ? degreeList!.find((e: Degree) => e.id === request.degree).subjects : [];
+  const subjects = request.degreeIndex ? degreeList!.find((e: Degree) => e.id === request.degreeIndex).subjects : [];
 
   return (
   <>
@@ -28,9 +28,9 @@ const Results = ({results, request, onGoBack}:Props) => {
   <Card sx={{ maxWidth: 1000}}>
     
     <CardContent style={{ whiteSpace: "pre-line" }}>
-      {`Carrera: ${request.degree? degreeList.find((e: Degree) => e.id === request.degree).name : ''}`}
+      {`Carrera: ${request.degreeIndex? degreeList.find((e: Degree) => e.id === request.degreeIndex).name : ''}`}
       <br />
-      {`Cantidad de Materias: ${request.degree ? degreeList.find((e: Degree) => e.id === request.degree).subjects.length : ''}`}
+      {`Cantidad de Materias: ${request.degreeIndex ? degreeList.find((e: Degree) => e.id === request.degreeIndex).subjects.length : ''}`}
       <br />
       <List>
           {subjects.map((s, i) => (
@@ -53,7 +53,9 @@ const Results = ({results, request, onGoBack}:Props) => {
     </CardContent>
     
   </Card>
-  <Typography component="h4" variant='h5'>Plan Propuesto</Typography>
+  <br />
+  <Typography component="h4" variant='h5'>Plan Propuesto (generado GA)</Typography>
+  <Typography component="h5" variant='h6'>Score {results[1]}</Typography>
   <Box sx={{ display: 'flex', flexDirection: "column", gap: "12px", maxWidth: 1000}}>
     {(
       <TableContainer component={Paper}>
@@ -62,11 +64,14 @@ const Results = ({results, request, onGoBack}:Props) => {
         <TableRow>
           <TableCell>Cuatrimestre</TableCell>
           <TableCell>Materias</TableCell>
-          <TableCell>Probabilidad de Aprobar</TableCell>
+          <TableCell>Probabilidad cuatrimestre</TableCell>
+          <TableCell>Probabilidad</TableCell>
+          <TableCell>Feedback</TableCell>
+          <TableCell>Score</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {results ? results.map((cuatrimestre, index) => (
+        {results ? results[0].map((cuatrimestre, index) => (
            <TableRow
              key={index}
              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -78,6 +83,48 @@ const Results = ({results, request, onGoBack}:Props) => {
                 {cuatrimestre ? cuatrimestre.map((e, index) => (`${e.name}\n`)) : ''}
              </TableCell>
              <TableCell>{cuatrimestre ? (cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) * 100).toFixed(2) : '0'}%</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${e.probability}\n`)) : ''}</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${e.feedbackRating}\n`)) : ''}</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${(e.feedbackRating * e.probability).toFixed(2)}\n`)) : ''}</TableCell>
+           </TableRow>
+         )): ""}
+      </TableBody>
+    </Table>
+  </TableContainer>)}
+  </Box>
+  <br />
+  <Typography component="h4" variant='h5'>Mejor Plan</Typography>
+  <Typography component="h5" variant='h6'>Score {results[3]}</Typography>
+  <Box sx={{ display: 'flex', flexDirection: "column", gap: "12px", maxWidth: 1000}}>
+    {(
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <TableCell>Cuatrimestre</TableCell>
+          <TableCell>Materias</TableCell>
+          <TableCell>Probabilidad cuatrimestre</TableCell>
+          <TableCell>Probabilidad</TableCell>
+          <TableCell>Feedback</TableCell>
+          <TableCell>Score</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {results ? results[2].map((cuatrimestre, index) => (
+           <TableRow
+             key={index}
+             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+           >
+             <TableCell scope="row">
+               {`${index + 1}C`} 
+             </TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>
+                {cuatrimestre ? cuatrimestre.map((e, index) => (`${e.name}\n`)) : ''}
+             </TableCell>
+             <TableCell>{cuatrimestre ? (cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) * 100).toFixed(2) : '0'}%</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${e.probability}\n`)) : ''}</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${e.feedbackRating}\n`)) : ''}</TableCell>
+             <TableCell style={{ whiteSpace: "pre-line" }}>{cuatrimestre ? cuatrimestre.map((e, index) => (`${(e.feedbackRating * e.probability).toFixed(2)}\n`)) : ''}</TableCell>
            </TableRow>
          )): ""}
       </TableBody>

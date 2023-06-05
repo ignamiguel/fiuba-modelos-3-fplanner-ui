@@ -1,5 +1,5 @@
 import GeneticAlgorithmConstructor from 'geneticalgorithm';
-import { Degree, PlanRequest, professorshipDic }  from "./model";
+import { Degree, PlanRequest, Professorship, professorshipDic }  from "./model";
 import { degreeList } from './model';
 
 const myMutationFunction = (phenotype: Array<any>) => {
@@ -69,7 +69,9 @@ const myFitnessFunction = (phenotype: Array<any>):number => {
       }
     }
   }
-  return probability * rating;
+
+  
+  return probability * (1 + rating);
 }
 
 const calculate = (request: PlanRequest): Array<any> | null => {
@@ -79,7 +81,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
     return null;
   }
 
-  const degree = degreeList.find((e: Degree) => e.id === request.degree);
+  const degree = degreeList.find((e: Degree) => e.id === request.degreeIndex);
   if (!degree) {
     console.log("degree is null: ", degree);
     return null;
@@ -92,15 +94,17 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   const periods = numberOfSubjects / /*request.numberOfSubjetsPerPeriod*/ 2;
 
   const subjects = degree.subjects;
-  
+
+  // Algoritmo Greedy que crea 4 individuos
   const phenotype1 = new Array(periods);
   const phenotype2 = new Array(periods);
   const phenotype3 = new Array(periods);
   const phenotype4 = new Array(periods);
 
-  // Algritmo Greedy que crea 2 individuos
   // Individuo 1: obtiene la primera cátedra para la primera materia y la 2 cátedra para la segunda materia
   // Individuo 2: obtiene la segunda cátedra para la primera materia y la 1 cátedra para la segunda materia
+
+
   let i = 0;
   let j = 0;
   let k = 0;
@@ -132,14 +136,6 @@ const calculate = (request: PlanRequest): Array<any> | null => {
     phenotype4[index] = cuatrimestre4;
   }
 
-  // console.log("myFitnessFunction", myFitnessFunction(firstPhenotype));
-
-  // const [A, B] = myCrossoverFunction(firstPhenotype, firstPhenotype);
-
-  // console.log("myCrossoverFunction", JSON.stringify(A));
-
-  // myMutationFunction(firstPhenotype);
-
   const geneticAlgorithm = GeneticAlgorithmConstructor({
     crossoverFunction: myCrossoverFunction,  
     mutationFunction: myMutationFunction,
@@ -153,22 +149,11 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   console.log("BEST", best);
 
   return best;
-
-  // console.log(request, best)
-  // if (checkRestrictions(request, getSummary(best, request))) {
-  //   return best;
-  // }
-  // return null;
 }
 
-export  {calculate, getSummary};
-    function checkRestrictions(request: any, summary: any) {
-        return true;
-    }
-
 function isRequestValid(request: PlanRequest):boolean {
-  if(!request.degree) {
-    console.log("request.degree is null: ", request.degree);
+  if(!request.degreeIndex) {
+    console.log("request.degreeIndex is null: ", request.degreeIndex);
     return false;
   }
 
@@ -178,3 +163,65 @@ function isRequestValid(request: PlanRequest):boolean {
   // }
   return true;
 }
+
+function calculateExact(request: PlanRequest): Array<any> | null {
+  if(!isRequestValid(request)) {
+    console.log("invalid request: ", JSON.stringify(request));
+    return null;
+  }
+
+  const degree = degreeList.find((e: Degree) => e.id === request.degreeIndex);
+  if (!degree) {
+    console.log("degree is null: ", degree);
+    return null;
+  }
+  
+  const subjectArray = degree.subjects;
+
+  // Cantidad de cuatrimestres
+  // # materias / # materias por cuatrimestre
+  const numberOfSubjects = subjectArray.length;
+  const numberOfSubjetsPerPeriod = /*request.numberOfSubjetsPerPeriod*/ 2;
+  // TODO: ajustar cuantas materias puedo hacer por cuatrimestre
+  const periods = numberOfSubjects / numberOfSubjetsPerPeriod;
+
+  const exactResultPlan = new Array(periods);
+
+  let k = 0;
+
+  for (let i = 0; i < exactResultPlan.length; i++) {
+    exactResultPlan[i] = new Array(numberOfSubjetsPerPeriod);
+
+    for (let j = 0; j < numberOfSubjetsPerPeriod; j++) {
+      const s = subjectArray[k];
+      
+      // console.log("s", JSON.stringify(s));
+
+      const p1 = professorshipDic[s.id];
+
+      // console.log("p1", JSON.stringify(p1));
+    
+      exactResultPlan[i][j] = getBetterProfessorshiOption(p1);
+      k++;
+    } 
+  }
+  return exactResultPlan;
+} 
+
+function getBetterProfessorshiOption(professorshipArray: Professorship[]): Professorship {
+  let betterP;
+  let betterScore = 0;
+
+  for (let index = 0; index < professorshipArray.length; index++) {
+    const p = professorshipArray[index];
+    const score = p.feedbackRating * p.probability;
+    if(score > betterScore) {
+      betterScore = score;
+      betterP = p;
+    }
+  }
+
+  return betterP;
+}
+
+export  {calculate, getSummary, calculateExact};
