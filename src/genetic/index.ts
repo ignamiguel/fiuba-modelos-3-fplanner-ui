@@ -55,23 +55,23 @@ const myFitnessFunction = (phenotype: Array<any>):number => {
 
   let probability = 1;
   let rating = 0;
+  let score = 0;
+
   for (let i = 0; i < phenotype.length; i++) {
     const cuatrimestre = phenotype[i];
 
     if(!cuatrimestre) continue;
     
     for (let j = 0; j < cuatrimestre.length; j++) {
-      const turno = cuatrimestre[j];
-      
-      if (turno) {
-        probability = probability * turno.probability;
-        rating = rating + turno.feedbackRating;
+      const catedra = cuatrimestre[j];
+
+      if (catedra) {
+        score += catedra.probability * catedra.feedbackRating;
       }
     }
   }
 
-  
-  return probability * (1 + rating);
+  return score;
 }
 
 const calculate = (request: PlanRequest): Array<any> | null => {
