@@ -136,7 +136,7 @@ const professorshipDic: Dictionary<Professorship[]> = {
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
-  }],
+  },],
   1: [{
     id: 1,
     name: "Análisis Matemático: Cátedra Acero (1)",
@@ -165,7 +165,7 @@ const professorshipDic: Dictionary<Professorship[]> = {
     subject: 2,
     feedbackRating: 3,
     probability: 0.69,
-    shift: mySubjectShift[1]
+    shift: mySubjectShift[2]
   }],
   3: [{
     id: 3,
@@ -248,7 +248,7 @@ const subjectList: Subject[] = [
   {
     id: 0,
     name: "Álgebra",
-    profesorships: [professorshipArray[0]]
+    profesorships: []
   },
   {
     id: 1,

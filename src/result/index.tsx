@@ -116,7 +116,7 @@ const Results = ({results, request, onGoBack}:Props) => {
         {results[2] ? results[2].map((cuatrimestre, index) => (
            <TableRow
              key={index}
-             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+             sx={ request.acceptableRisk > cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) ? {"backgroundColor": "orange"} : {}}
            >
              <TableCell scope="row">
                {`${index + 1}C`} 

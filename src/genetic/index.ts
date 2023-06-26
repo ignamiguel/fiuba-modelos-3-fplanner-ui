@@ -3,6 +3,7 @@ import { Degree, PlanRequest, Professorship, professorshipDic }  from "./model";
 import { degreeList } from './model';
 
 const NUMBER_OF_ITERATIONS = 2000;
+const OUT_OF_SHIFT_PENALTY = 10;
 
 const myMutationFunction = (phenotype: Array<any>) => {
   const r1 = Math.random() * (phenotype.length - 0) + 0;
@@ -51,7 +52,7 @@ const getSummary = (phenotype:any, request:PlanRequest) => phenotype.reduce((acc
 });
 
 
-const myFitnessFunction = (phenotype: Array<any>):number => {
+const myFitnessFunction = (phenotype: Array<any>, shiftAvailability:number):number => {
   // use phenotype and possibly some other information
   // to determine the fitness number.  Higher is better, lower is worse.
 
@@ -67,6 +68,10 @@ const myFitnessFunction = (phenotype: Array<any>):number => {
 
       if (catedra) {
         score += catedra.probability * catedra.feedbackRating;
+      }
+
+      if(catedra.shift.id !== shiftAvailability) {
+        score = score - OUT_OF_SHIFT_PENALTY;
       }
     }
   }
@@ -91,6 +96,9 @@ const calculate = (request: PlanRequest): Array<any> | null => {
     console.log("degree selected: ", degree.name);
   }
 
+  // 0, 1, 2, 4
+  const shiftAvailability = request.availiabilityForClasses;
+
   const numberOfSubjetsPerPeriod = request.numberOfSubjetsPerPeriod;
 
   // Cantidad de cuatrimestres
@@ -99,7 +107,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   const subjectArray = degree.subjects;
 
   // Algoritmo Greedy que crea 4 individuos
-  const phenotypeArray = createPhenotypes(subjectArray, numberOfSubjetsPerPeriod);
+  const phenotypeArray = createPhenotypes(subjectArray, numberOfSubjetsPerPeriod, shiftAvailability);
 
   console.log("phenotypeArray", JSON.stringify(phenotypeArray));
 
@@ -110,7 +118,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   const geneticAlgorithm = GeneticAlgorithmConstructor({
     crossoverFunction: myCrossoverFunction,  
     mutationFunction: myMutationFunction,
-    fitnessFunction: myFitnessFunction,
+    fitnessFunction: (phenotype: Array<any>) =>  myFitnessFunction(phenotype, shiftAvailability),
     //population: [ phenotype1, phenotype2, phenotype3, phenotype4 ]
     population: phenotypeArray
   });
@@ -123,7 +131,7 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   return best;
 };
 
-function createPhenotypes(subjectArray, numberOfSubjetsPerPeriod): Array<any> {
+function createPhenotypes(subjectArray: Array<any>, numberOfSubjetsPerPeriod:number, shiftAvailability: number): Array<any> {
   // Cantidad de cuatrimestres
   // # materias / # materias por cuatrimestre
   const numberOfSubjects = subjectArray.length;
@@ -138,8 +146,8 @@ function createPhenotypes(subjectArray, numberOfSubjetsPerPeriod): Array<any> {
   
   const subjectArrayForWork = structuredClone(subjectArray);
 
-  console.log("subjectArray", JSON.stringify(subjectArray));
-  console.log("subjectArrayForWork", JSON.stringify(subjectArrayForWork));
+  // console.log("subjectArray", JSON.stringify(subjectArray));
+  // console.log("subjectArrayForWork", JSON.stringify(subjectArrayForWork));
 
   for (let cuatri_index = 0; cuatri_index < periods; cuatri_index++) {
     
@@ -153,10 +161,25 @@ function createPhenotypes(subjectArray, numberOfSubjetsPerPeriod): Array<any> {
       const materia = subjectArrayForWork.shift();
       if(!materia) {console.error("createPhenotypes --> error cargando el phenotype con materia");}
       
-      phenotype5[cuatri_index][cursada_index] = professorshipDic[materia.id][0];
-      phenotype6[cuatri_index][cursada_index] = professorshipDic[materia.id][1];
-      phenotype7[cuatri_index][cursada_index] = professorshipDic[materia.id][cursada_index];
-      phenotype8[cuatri_index][cursada_index] = professorshipDic[materia.id][1 - cursada_index];
+
+      // ¿Cuándo puede cursar?
+      // 0 - No seleccionó
+      // 1 - Mañana
+      // 2 - Tarde
+      // 4 - Todos
+      if(shiftAvailability === 0 || shiftAvailability === 4) {
+        // Ignorar Turnos
+        phenotype5[cuatri_index][cursada_index] = professorshipDic[materia.id][0];
+        phenotype6[cuatri_index][cursada_index] = professorshipDic[materia.id][1];
+        phenotype7[cuatri_index][cursada_index] = professorshipDic[materia.id][cursada_index];
+        phenotype8[cuatri_index][cursada_index] = professorshipDic[materia.id][1 - cursada_index];
+      } else {
+        
+        phenotype5[cuatri_index][cursada_index] = professorshipDic[materia.id][shiftAvailability - 1];
+        phenotype6[cuatri_index][cursada_index] = professorshipDic[materia.id][shiftAvailability - 1];
+        phenotype7[cuatri_index][cursada_index] = professorshipDic[materia.id][shiftAvailability - 1];
+        phenotype8[cuatri_index][cursada_index] = professorshipDic[materia.id][shiftAvailability - 1];
+      }
     }
   }
 
@@ -188,6 +211,9 @@ function calculateExact(request: PlanRequest): Array<any> | null {
     return null;
   }
   
+  // 0, 1, 2, 4
+  const shiftAvailability = request.availiabilityForClasses;
+
   const subjectArray = degree.subjects;
 
   // Cantidad de cuatrimestres
@@ -211,22 +237,37 @@ function calculateExact(request: PlanRequest): Array<any> | null {
 
       const p1 = professorshipDic[s.id];
     
-      exactResultPlan[i][j] = getBetterProfessorshiOption(p1);
+      exactResultPlan[i][j] = getBetterProfessorshiOption(p1, shiftAvailability);
     } 
   }
   return exactResultPlan;
 } 
 
-function getBetterProfessorshiOption(professorshipArray: Professorship[]): Professorship {
+function getBetterProfessorshiOption(professorshipArray: Professorship[], shiftAvailability:number): Professorship {
   let betterP;
   let betterScore = 0;
 
   for (let index = 0; index < professorshipArray.length; index++) {
     const p = professorshipArray[index];
-    const score = p.feedbackRating * p.probability;
-    if(score > betterScore) {
-      betterScore = score;
-      betterP = p;
+    
+    // ¿Es necesario considerar los turnos?
+    if(shiftAvailability === 1 || shiftAvailability === 2) {
+      // ¿La cátedra se dicta en el turno seleccionado?
+      if(p.shift.id === shiftAvailability) {
+        const score = p.feedbackRating * p.probability;
+        if(score > betterScore) {
+          betterScore = score;
+          betterP = p;
+        }
+      } else {
+        continue;
+      }
+    } else {
+      const score = p.feedbackRating * p.probability;
+      if(score > betterScore) {
+        betterScore = score;
+        betterP = p;
+      }
     }
   }
 
