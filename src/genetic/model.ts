@@ -123,123 +123,235 @@ const professorshipArray: Professorship[] = [
 
 const professorshipDic: Dictionary<Professorship[]> = {
   0: [{
-    id: 0,
+    id: 1,
     name: "Álgebra: Cátedra Orecchia (TM: Turno Mañana)",
     subject: 0,
     feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   }, {
-    id: 1,
+    id: 2,
     name: "Álgebra: Cátedra Orecchia (TT: Turno Tarde)",
     subject: 0,
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
+  }, {
+    id: 3,
+    name: "Álgebra: Cátedra Perez (TM: Turno Mañana)",
+    subject: 0,
+    feedbackRating: 5,
+    probability: 0.79,
+    shift: mySubjectShift[1]
+  }, {
+    id: 4,
+    name: "Álgebra: Cátedra Perez (TT: Turno Tarde)",
+    subject: 0,
+    feedbackRating: 5,
+    probability: 0.59,
+    shift: mySubjectShift[2]
   }],
   1: [{
-    id: 2,
+    id: 5,
     name: "Análisis Matemático: Cátedra Acero (TM: Turno Mañana)",
     subject: 1,
     feedbackRating: 4,
     probability: 0.79,
     shift: mySubjectShift[1]
   },{
-    id: 11,
+    id: 6,
     name: "Análisis Matemático: Cátedra Acero (TT: Turno Tarde)",
+    subject: 1,
+    feedbackRating: 3,
+    probability: 0.89,
+    shift: mySubjectShift[2]
+  }, {
+    id: 7,
+    name: "Análisis Matemático: Cátedra Gomez (TM: Turno Mañana)",
+    subject: 1,
+    feedbackRating: 3,
+    probability: 0.99,
+    shift: mySubjectShift[1]
+  },{
+    id: 8,
+    name: "Análisis Matemático: Cátedra Gomez (TT: Turno Tarde)",
     subject: 1,
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
   }],
   2: [{
-    id: 2,
+    id: 9,
     name: "Organización del Computador: Cátedra Benitez (TM: Turno Mañana)",
     subject: 2,
     feedbackRating: 4,
-    probability: 0.59,
+    probability: 0.79,
     shift: mySubjectShift[1]
   }, {
-    id: 12,
+    id: 10,
     name: "Organización del Computador: Cátedra Benitez (TT: Turno Tarde)",
     subject: 2,
     feedbackRating: 3,
     probability: 0.69,
     shift: mySubjectShift[2]
+  }, {
+    id: 11,
+    name: "Organización del Computador: Cátedra Ramirez (TM: Turno Mañana)",
+    subject: 2,
+    feedbackRating: 3,
+    probability: 0.99,
+    shift: mySubjectShift[1]
+  }, {
+    id: 12,
+    name: "Organización del Computador: Cátedra Ramirez (TT: Turno Tarde)",
+    subject: 2,
+    feedbackRating: 4,
+    probability: 0.59,
+    shift: mySubjectShift[2]
   }],
   3: [{
-    id: 3,
+    id: 13,
     name: "Modelos y Optimización I: Cátedra Ramos (TM: Turno Mañana)",
     subject: 3,
     feedbackRating: 4,
-    probability: 0.39,
+    probability: 0.49,
     shift: mySubjectShift[1]
   }, {
-    id: 13,
+    id: 14,
     name: "Modelos y Optimización I: Cátedra Ramos (TT: Turno Tarde)",
     subject: 3,
+    feedbackRating: 4,
+    probability: 0.69,
+    shift: mySubjectShift[2]
+  }, {
+    id: 15,
+    name: "Modelos y Optimización I: Cátedra Fernandez (TM: Turno Mañana)",
+    subject: 3,
+    feedbackRating: 4,
+    probability: 0.59,
+    shift: mySubjectShift[1]
+  }, {
+    id: 16,
+    name: "Modelos y Optimización I: Cátedra Fernandez (TT: Turno Tarde)",
+    subject: 3,
     feedbackRating: 3,
-    probability: 0.49,
+    probability: 0.89,
     shift: mySubjectShift[2]
   }],
   4: [{
-    id: 4,
+    id: 17,
     name: "Algoritmos y Programación I: Cátedra Rosita (TM: Turno Mañana)",
     subject: 4,
     feedbackRating: 4,
     probability: 0.79,
     shift: mySubjectShift[1]
   }, {
-    id: 14,
+    id: 18,
     name: "Algoritmos y Programación I: Cátedra Rosita (TT: Turno Tarde)",
     subject: 4,
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
+  }, {
+    id: 19,
+    name: "Algoritmos y Programación I: Cátedra Mendez (TM: Turno Mañana)",
+    subject: 4,
+    feedbackRating: 3,
+    probability: 0.79,
+    shift: mySubjectShift[1]
+  }, {
+    id: 20,
+    name: "Algoritmos y Programación I: Cátedra Mendez (TT: Turno Tarde)",
+    subject: 4,
+    feedbackRating: 3,
+    probability: 0.99,
+    shift: mySubjectShift[2]
   }],
   5: [{
-    id: 5,
+    id: 21,
     name: "Base de Datos: Cátedra Beiro (TM: Turno Mañana)",
     subject: 5,
     feedbackRating: 4,
-    probability: 0.49,
+    probability: 0.59,
     shift: mySubjectShift[1]
   }, {
-    id: 15,
+    id: 22,
     name: "Base de Datos: Cátedra Beiro (TT: Turno Tarde)",
     subject: 5,
     feedbackRating: 3,
     probability: 0.79,
     shift: mySubjectShift[2]
+  }, {
+    id: 23,
+    name: "Base de Datos: Cátedra Vargas (TM: Turno Mañana)",
+    subject: 5,
+    feedbackRating: 3,
+    probability: 0.99,
+    shift: mySubjectShift[1]
+  }, {
+    id: 24,
+    name: "Base de Datos: Cátedra Vargas (TT: Turno Tarde)",
+    subject: 5,
+    feedbackRating: 3,
+    probability: 0.89,
+    shift: mySubjectShift[2]
   }],
   6: [{
-    id: 6,
+    id: 25,
     name: "Técnicas de Diseño: Cátedra Paez (TM: Turno Mañana)",
     subject: 6,
     feedbackRating: 4,
-    probability: 0.49,
+    probability: 0.59,
     shift: mySubjectShift[1]
   }, {
-    id: 16,
+    id: 26,
     name: "Técnicas de Diseño: Cátedra Paez (TT: Turno Tarde)",
     subject: 6,
     feedbackRating: 3,
     probability: 0.99,
     shift: mySubjectShift[2]
+  }, {
+    id: 27,
+    name: "Técnicas de Diseño: Cátedra Turri (TM: Turno Mañana)",
+    subject: 6,
+    feedbackRating: 5,
+    probability: 0.49,
+    shift: mySubjectShift[1]
+  }, {
+    id: 28,
+    name: "Técnicas de Diseño: Cátedra Turri (TT: Turno Tarde)",
+    subject: 6,
+    feedbackRating: 5,
+    probability: 0.79,
+    shift: mySubjectShift[2]
   }],
   7: [{
-    id: 7,
+    id: 29,
     name: "Administración de Proyectos: Cátedra Miguel (TM: Turno Mañana)",
     subject: 7,
     feedbackRating: 4,
     probability: 0.29,
     shift: mySubjectShift[1]
   }, {
-    id: 17,
+    id: 30,
     name: "Administración de Proyectos: Cátedra Miguel (TT: Turno Tarde)",
     subject: 7,
     feedbackRating: 3,
-    probability: 0.49,
+    probability: 0.59,
+    shift: mySubjectShift[2]
+  },{
+    id: 31,
+    name: "Administración de Proyectos: Cátedra Otero (TM: Turno Mañana)",
+    subject: 7,
+    feedbackRating: 3,
+    probability: 0.89,
+    shift: mySubjectShift[1]
+  }, {
+    id: 32,
+    name: "Administración de Proyectos: Cátedra Otero (TT: Turno Tarde)",
+    subject: 7,
+    feedbackRating: 2,
+    probability: 0.99,
     shift: mySubjectShift[2]
   }]
 };
