@@ -104,57 +104,11 @@ const calculate = (request: PlanRequest): Array<any> | null => {
   // Algoritmo Greedy que crea 4 individuos
   const phenotypeArray = createPhenotypes(subjectArray, numberOfSubjetsPerPeriod);
 
-  const phenotype1 = new Array(4);
-  const phenotype2 = new Array(4);
-  const phenotype3 = new Array(4);
-  const phenotype4 = new Array(4);
-
-  console.log("Pepe", JSON.stringify(phenotypeArray));
+  console.log("phenotypeArray", JSON.stringify(phenotypeArray));
 
   // Individuo 1: obtiene la primera cátedra para la primera materia y la 2 cátedra para la segunda materia
   // Individuo 2: obtiene la segunda cátedra para la primera materia y la 1 cátedra para la segunda materia
 
-  let i = 0;
-  let j = 0;
-  let k = 0;
-  let l = 0;
-  for (let index = 0; index < phenotype1.length; index++) {
-
-    const cuatrimestre0 = new Array(numberOfSubjetsPerPeriod);
-
-    const subjectArray_pepe = structuredClone(subjectArray);
-    for (let index2 = 0; index2 < cuatrimestre0.length; index2++) {
-      // cursada
-      const materia = subjectArray_pepe.shift();
-      if(!materia) {console.error("error cargado el phenotype con materia");}
-      cuatrimestre0[index2] = professorshipDic[materia.id][0];
-    }
-    
-    const cuatrimestre1 = new Array(2);
-    const cuatrimestre2 = new Array(2);
-    const cuatrimestre3 = new Array(2);
-    const cuatrimestre4 = new Array(2);
-    
-    cuatrimestre1[0] = professorshipDic[subjectArray[i++].id][0];
-    cuatrimestre1[1] = professorshipDic[subjectArray[i++].id][1];
-    
-    cuatrimestre2[0] = professorshipDic[subjectArray[j++].id][1];
-    cuatrimestre2[1] = professorshipDic[subjectArray[j++].id][0];
-
-    cuatrimestre3[0] = professorshipDic[subjectArray[k++].id][0];
-    cuatrimestre3[1] = professorshipDic[subjectArray[k++].id][0];
-
-    cuatrimestre4[0] = professorshipDic[subjectArray[l++].id][1];
-    cuatrimestre4[1] = professorshipDic[subjectArray[l++].id][1];
-
-    // TODO: Saco el turno noche
-    // cuatrimestre[2] = `Turno Noche`;
-
-    phenotype1[index] = cuatrimestre1;
-    phenotype2[index] = cuatrimestre2;
-    phenotype3[index] = cuatrimestre3;
-    phenotype4[index] = cuatrimestre4;
-  }
 
   const geneticAlgorithm = GeneticAlgorithmConstructor({
     crossoverFunction: myCrossoverFunction,  
@@ -176,7 +130,7 @@ function createPhenotypes(subjectArray, numberOfSubjetsPerPeriod): Array<any> {
   // Cantidad de cuatrimestres
   // # materias / # materias por cuatrimestre
   const numberOfSubjects = subjectArray.length;
-  // TODO: ajustar cuantas materias puedo hacer por cuatrimestre
+  // Cuantas materias puedo hacer por cuatrimestre
   const periods = numberOfSubjects / numberOfSubjetsPerPeriod;
 
   const phenotype5 = new Array(periods);
@@ -245,7 +199,7 @@ function calculateExact(request: PlanRequest): Array<any> | null {
   
   const numberOfSubjetsPerPeriod = request.numberOfSubjetsPerPeriod;
   
-  // TODO: ajustar cuantas materias puedo hacer por cuatrimestre
+  // Ccuantas materias puedo hacer por cuatrimestre
   const periods = numberOfSubjects / numberOfSubjetsPerPeriod;
 
   const exactResultPlan = new Array(periods);
@@ -259,8 +213,6 @@ function calculateExact(request: PlanRequest): Array<any> | null {
       const s = subjectArrayForWork.shift();
 
       const p1 = professorshipDic[s.id];
-
-      // console.log("p1", JSON.stringify(p1));
     
       exactResultPlan[i][j] = getBetterProfessorshiOption(p1);
     } 
