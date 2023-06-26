@@ -42,8 +42,8 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           onChange={(e) => setNumberOfSubjetsPerPeriod(Number(e.target.value))}
         >
           <MenuItem value={0}>Seleccionar</MenuItem>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={1}>1 Materia</MenuItem>
+          <MenuItem value={2}>2 Materias</MenuItem>
           {/* <MenuItem value={3}>3</MenuItem> */}
         </Select>
       </FormControl>
@@ -61,7 +61,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={1}>Por la mañana (08 a 12 hs)</MenuItem>
           <MenuItem value={2}>Por la tarde (14 a 18 hs)</MenuItem>
-          <MenuItem value={3}>Por la noche (18 a 22 hs)</MenuItem>
+          {/* <MenuItem value={3}>Por la noche (18 a 22 hs)</MenuItem> */}
           <MenuItem value={4}>Todos los turnos</MenuItem>
         </Select>
       </FormControl>
@@ -82,6 +82,8 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           <MenuItem value={0.60}>60%</MenuItem>
           <MenuItem value={0.55}>55%</MenuItem>
           <MenuItem value={0.50}>50%</MenuItem>
+          <MenuItem value={0.45}>45%</MenuItem>
+          <MenuItem value={0.40}>40%</MenuItem>
         </Select>
       </FormControl>
     </Box>
