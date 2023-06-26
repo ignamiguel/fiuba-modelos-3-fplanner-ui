@@ -44,7 +44,7 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           <MenuItem value={0}>Seleccionar</MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
+          {/* <MenuItem value={3}>3</MenuItem> */}
         </Select>
       </FormControl>
     </Box>
