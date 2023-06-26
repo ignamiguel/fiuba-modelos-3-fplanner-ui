@@ -136,7 +136,7 @@ const professorshipDic: Dictionary<Professorship[]> = {
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
-  },],
+  }],
   1: [{
     id: 1,
     name: "Análisis Matemático: Cátedra Acero (1)",
