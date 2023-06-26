@@ -1,10 +1,7 @@
 import { Admin,
     Resource, 
-    ListGuesser, 
-    ShowGuesser, 
     LayoutComponent, 
-    Layout, 
-    EditGuesser} from "react-admin";
+    Layout} from "react-admin";
 import { dataProvider } from '../dataProviders/fiubaDataProvider';
 import { Dashboard } from '../Dashboard';
 import { authProvider } from '../authProvider';
