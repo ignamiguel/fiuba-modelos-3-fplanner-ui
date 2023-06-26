@@ -124,29 +124,29 @@ const professorshipArray: Professorship[] = [
 const professorshipDic: Dictionary<Professorship[]> = {
   0: [{
     id: 0,
-    name: "Álgebra: Cátedra Orecchia (1)",
+    name: "Álgebra: Cátedra Orecchia (TM: Turno Mañana)",
     subject: 0,
     feedbackRating: 4,
     probability: 0.99,
     shift: mySubjectShift[1]
   }, {
-    id: 10,
-    name: "Álgebra: Cátedra Orecchia (2)",
+    id: 1,
+    name: "Álgebra: Cátedra Orecchia (TT: Turno Tarde)",
     subject: 0,
     feedbackRating: 3,
     probability: 0.89,
     shift: mySubjectShift[2]
   }],
   1: [{
-    id: 1,
-    name: "Análisis Matemático: Cátedra Acero (1)",
+    id: 2,
+    name: "Análisis Matemático: Cátedra Acero (TM: Turno Mañana)",
     subject: 1,
     feedbackRating: 4,
     probability: 0.79,
     shift: mySubjectShift[1]
   },{
     id: 11,
-    name: "Análisis Matemático: Cátedra Acero (2)",
+    name: "Análisis Matemático: Cátedra Acero (TT: Turno Tarde)",
     subject: 1,
     feedbackRating: 3,
     probability: 0.89,
@@ -154,14 +154,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   2: [{
     id: 2,
-    name: "Organización del Computador: Cátedra Benitez (1)",
+    name: "Organización del Computador: Cátedra Benitez (TM: Turno Mañana)",
     subject: 2,
     feedbackRating: 4,
     probability: 0.59,
     shift: mySubjectShift[1]
   }, {
     id: 12,
-    name: "Organización del Computador: Cátedra Benitez (2)",
+    name: "Organización del Computador: Cátedra Benitez (TT: Turno Tarde)",
     subject: 2,
     feedbackRating: 3,
     probability: 0.69,
@@ -169,14 +169,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   3: [{
     id: 3,
-    name: "Modelos y Optimización I: Cátedra Ramos (1)",
+    name: "Modelos y Optimización I: Cátedra Ramos (TM: Turno Mañana)",
     subject: 3,
     feedbackRating: 4,
     probability: 0.39,
     shift: mySubjectShift[1]
   }, {
     id: 13,
-    name: "Modelos y Optimización I: Cátedra Ramos (2)",
+    name: "Modelos y Optimización I: Cátedra Ramos (TT: Turno Tarde)",
     subject: 3,
     feedbackRating: 3,
     probability: 0.49,
@@ -184,14 +184,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   4: [{
     id: 4,
-    name: "Algoritmos y Programación I: Cátedra Rosita (1)",
+    name: "Algoritmos y Programación I: Cátedra Rosita (TM: Turno Mañana)",
     subject: 4,
     feedbackRating: 4,
     probability: 0.79,
     shift: mySubjectShift[1]
   }, {
     id: 14,
-    name: "Algoritmos y Programación I: Cátedra Rosita (2)",
+    name: "Algoritmos y Programación I: Cátedra Rosita (TT: Turno Tarde)",
     subject: 4,
     feedbackRating: 3,
     probability: 0.89,
@@ -199,14 +199,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   5: [{
     id: 5,
-    name: "Base de Datos: Cátedra Beiro (1)",
+    name: "Base de Datos: Cátedra Beiro (TM: Turno Mañana)",
     subject: 5,
     feedbackRating: 4,
     probability: 0.49,
     shift: mySubjectShift[1]
   }, {
     id: 15,
-    name: "Base de Datos: Cátedra Beiro (2)",
+    name: "Base de Datos: Cátedra Beiro (TT: Turno Tarde)",
     subject: 5,
     feedbackRating: 3,
     probability: 0.79,
@@ -214,14 +214,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   6: [{
     id: 6,
-    name: "Técnicas de Diseño: Cátedra Paez (1)",
+    name: "Técnicas de Diseño: Cátedra Paez (TM: Turno Mañana)",
     subject: 6,
     feedbackRating: 4,
     probability: 0.49,
     shift: mySubjectShift[1]
   }, {
     id: 16,
-    name: "Técnicas de Diseño: Cátedra Paez (2)",
+    name: "Técnicas de Diseño: Cátedra Paez (TT: Turno Tarde)",
     subject: 6,
     feedbackRating: 3,
     probability: 0.99,
@@ -229,14 +229,14 @@ const professorshipDic: Dictionary<Professorship[]> = {
   }],
   7: [{
     id: 7,
-    name: "Administración de Proyectos: Cátedra Miguel (1)",
+    name: "Administración de Proyectos: Cátedra Miguel (TM: Turno Mañana)",
     subject: 7,
     feedbackRating: 4,
     probability: 0.29,
     shift: mySubjectShift[1]
   }, {
     id: 17,
-    name: "Administración de Proyectos: Cátedra Miguel (2)",
+    name: "Administración de Proyectos: Cátedra Miguel (TT: Turno Tarde)",
     subject: 7,
     feedbackRating: 3,
     probability: 0.49,
