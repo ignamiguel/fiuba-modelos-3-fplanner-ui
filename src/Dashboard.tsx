@@ -25,6 +25,9 @@ export const Dashboard = () => {
     console.log("exactResult", exactResult);
 
     let score = 0;
+    
+    if(!result) {return;}
+
     for (let i = 0; i < result.length; i++) {
       const cuatrimestre = result[i];
       for (let j = 0; j < cuatrimestre.length; j++) {
