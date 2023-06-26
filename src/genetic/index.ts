@@ -95,9 +95,6 @@ const calculate = (request: PlanRequest): Array<any> | null => {
 
   // Cantidad de cuatrimestres
   // # materias / # materias por cuatrimestre
-  const numberOfSubjects = degree.subjects.length;
-  // TODO: ajustar cuantas materias puedo hacer por cuatrimestre
-  const periods = numberOfSubjects / numberOfSubjetsPerPeriod;
 
   const subjectArray = degree.subjects;
 
