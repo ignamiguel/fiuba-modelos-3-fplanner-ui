@@ -49,7 +49,7 @@ const Results = ({results, request, onGoBack}:Props) => {
       <br />
       {`Disponibilidad para cursar: ${request.availiabilityForClasses ? mySubjectShift[request.availiabilityForClasses].name : ''}`}
       <br />
-      {`Riesgo Aceptable: ${request.acceptableRisk} %`}
+      {`Riesgo Aceptable: ${request.acceptableRisk * 100} %`}
     </CardContent>
     
   </Card>
@@ -71,10 +71,13 @@ const Results = ({results, request, onGoBack}:Props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {results ? results[0].map((cuatrimestre, index) => (
+        {results[0] ? results[0].map((cuatrimestre, index) => (
+           
            <TableRow
              key={index}
-             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+
+             sx={ request.acceptableRisk > cuatrimestre.reduce((accumulator, currentValue) => accumulator * currentValue.probability, 1) ? {"backgroundColor": "#FF0000"} : {}}
+            
            >
              <TableCell scope="row">
                {`${index + 1}C`} 
@@ -110,7 +113,7 @@ const Results = ({results, request, onGoBack}:Props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {results ? results[2].map((cuatrimestre, index) => (
+        {results[2] ? results[2].map((cuatrimestre, index) => (
            <TableRow
              key={index}
              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
