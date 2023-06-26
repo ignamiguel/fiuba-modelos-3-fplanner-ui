@@ -77,11 +77,11 @@ const Form = ({doCalculations}: {doCalculations:any}) => {
           onChange={(e) => setAcceptableRisk(Number(e.target.value))}
         >
           <MenuItem value={0}>Seleccionar</MenuItem>
-          <MenuItem value={90}>90%</MenuItem>
-          <MenuItem value={80}>80%</MenuItem>
-          <MenuItem value={70}>70%</MenuItem>
-          <MenuItem value={60}>60%</MenuItem>
-          <MenuItem value={50}>50%</MenuItem>
+          <MenuItem value={0.70}>70%</MenuItem>
+          <MenuItem value={0.65}>65%</MenuItem>
+          <MenuItem value={0.60}>60%</MenuItem>
+          <MenuItem value={0.55}>55%</MenuItem>
+          <MenuItem value={0.50}>50%</MenuItem>
         </Select>
       </FormControl>
     </Box>
