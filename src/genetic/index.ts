@@ -4,24 +4,25 @@ import { degreeList } from './model';
 
 const NUMBER_OF_ITERATIONS = 2000;
 const OUT_OF_SHIFT_PENALTY = 10;
+const NUMBER_OF_PROFESSORSHIPS = 2;
 
 const myMutationFunction = (phenotype: Array<any>) => {
   const r1 = Math.random() * (phenotype.length - 0) + 0;
-  const randomPeriod = Math.floor(r1);
+  const randomCuatrimestre = Math.floor(r1);
 
   const r2 = Math.random() * (phenotype[0].length - 0) + 0;
   const randomTurno = Math.floor(r2);
 
-  const r3 = Math.random() * (2 - 0) + 0;
+  const r3 = Math.random() * (NUMBER_OF_PROFESSORSHIPS - 0) + 0;
   const randomCatedra = Math.floor(r3);
 
   // use oldPhenotype and some random
   // function to make a change to your
   // phenotype
 
-  const key = phenotype[randomPeriod][randomTurno].subject;
+  const key = phenotype[randomCuatrimestre][randomTurno].subject;
 
-  phenotype[randomPeriod][randomTurno] = professorshipDic[key][randomCatedra];
+  phenotype[randomCuatrimestre][randomTurno] = professorshipDic[key][randomCatedra];
 
 	return phenotype;
 };
